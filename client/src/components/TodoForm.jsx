@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-function TodoForm({ setTodos }) {
+function TodoForm({ todos, setTodos }) {
     const [formData, setFormData] = useState({
         titulo: '',
         descricao: '',
@@ -14,6 +14,13 @@ function TodoForm({ setTodos }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const newTodos = [...todos, formData]
+        setTodos(newTodos)
+        setFormData({
+            titulo: '',
+            descricao: '',
+            datavenc: ''
+        })
         const response = await axios.post('http://localhost:8080/tarefas', formData)
     }
 
@@ -41,7 +48,7 @@ function TodoForm({ setTodos }) {
             placeholder='Data de vencimento da tarefa'
             required></input>
 
-            <button className='addTodo' type='submit'>Adicionar tarefa</button>
+            <button className='addTodo' type='submit' onSubmit={handleSubmit}>Adicionar tarefa</button>
         </form>
     </div>
   )

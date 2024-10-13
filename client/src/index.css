@@ -35,6 +35,7 @@ hr {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .todo-list{
@@ -58,12 +59,28 @@ hr {
   border-radius: 10px;
 }
 
-.content{
-  text-align: left;
-}
-
 .todo-item:hover {
   background-color: #9f9f9fb5;
+}
+
+.todo-completed{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  background-color: #357a38;
+  transition: .3s ease;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.todo-completed:hover {
+  background-color: #2e6930;
+}
+
+.content{
+  text-align: left;
 }
 
 p {
@@ -80,7 +97,7 @@ button, input, select {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
-  margin: 0 5px;
+  margin: 5px 5px;
 }
 
 button:hover {
