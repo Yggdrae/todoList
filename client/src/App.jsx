@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Todo from './components/todo'
+import TodoForm from './components/TodoForm'
+import Filter from './components/Filter'
 
 function App() {
   const [array, setArray] = useState([])
-  const [count, setCount] = useState(0)
 
   const fetchAPI = async () => {
     const response = await axios.get('http://localhost:8080/getTodo')
     setArray(response.data)
-    console.log(response.data)
   }
 
   useEffect(() => {
@@ -20,7 +19,19 @@ function App() {
   
   return (
     <>
-      
+      <h1>Lista de Tarefas</h1>
+      <div className="todo-list">
+        <div className="formFilter">
+          <TodoForm />
+          <Filter />
+        </div>
+        <hr />
+        {
+          array.map((todo, index) => (
+            <Todo todo={todo}/>
+          ))
+        }
+      </div>
     </>
   )
 }

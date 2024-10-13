@@ -1,0 +1,46 @@
+import React, { useState } from 'react'
+import axios from 'axios'
+
+function TodoForm() {
+    const [formData, setFormData] = useState({
+        titulo: '',
+        descricao: '',
+        datavenc: ''
+    })
+
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const response = await axios.post('http://localhost:8080/createTodo', formData)
+    }
+
+  return (
+    <div className="form">
+        <form onSubmit={handleSubmit}>
+            <input type='text' 
+            name='titulo'
+            value={formData.titulo}
+            onChange={handleChange}
+            placeholder='Título da tarefa'></input>
+
+            <input type='text'
+            name='descricao'
+            value={formData.descricao}
+            onChange={handleChange}
+            placeholder='Descrição'></input>
+
+            <input type='date'
+            name='datavenc'
+            value={formData.datavenc}
+            onChange={handleChange}
+            placeholder='Data de vencimento da tarefa'></input>
+            <button className='addTodo' type='submit'>Adicionar tarefa</button>
+        </form>
+    </div>
+  )
+}
+
+export default TodoForm
