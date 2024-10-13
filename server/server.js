@@ -33,6 +33,24 @@ app.post('/tarefas', (req, res) => {
     client.end
 })
 
+app.put('/tarefas/:id', (req, res) => {
+    const formInfo = req.body;
+    console.log(formInfo)
+
+    client.query(`update tarefas 
+                set titulo = '${formInfo.titulo}',
+                descricao = '${formInfo.descricao}',
+                datavenc = '${formInfo.datavenc}'
+                where id = ${req.params.id}`, (err) => {
+        if(!err){
+            console.log("Tarefa atualizada com sucesso")
+        } else {
+            console.log(err.message)
+        }
+    })
+    client.end
+})
+
 app.put('/tarefas/:id/:iscompleted', (req, res) => {
     const userid = req.params.id
     const isCompleted = req.params.iscompleted

@@ -79,12 +79,18 @@ hr {
   background-color: #2e6930;
 }
 
+.editForm{
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
 .content{
   text-align: left;
 }
 
 p {
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 button, input, select {
