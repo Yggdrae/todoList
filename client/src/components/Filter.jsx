@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Filter() {
+function Filter({ filter, setFilter}) {
   return (
     <div>
-        <select name="filter" id="filter">
-            <option value="">Filtrar tarefas</option>
-            <option value="Completo">Completo</option>
-            <option value="Incompleto">Incompleto</option>
+        <select name="filter" id="filter" value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <option value="All">Todos</option>
+            <option value="completed">Completo</option>
+            <option value="incomplete">Incompleto</option>
         </select>
     </div>
   )

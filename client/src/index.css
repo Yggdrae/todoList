@@ -22,12 +22,16 @@ h1 {
   line-height: 1.1;
 }
 
+hr {
+  margin: 20px 0;
+}
+
 .todoTitle{
   font-size: 20px;
   font-weight: 800;
 }
 
-.formFilter{
+.searchFilter{
   display: flex;
   flex-direction: row;
   justify-content: space-between;

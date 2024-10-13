@@ -12,7 +12,7 @@ app.use(cors(corsOptions));
 
 client.connect();
 
-app.get('/getTodo', (req, res) => {
+app.get('/tarefas/', (req, res) => {
     client.query('Select * from tarefas', (err, result) => {
         if(!err){
             res.json(result.rows);
@@ -21,11 +21,35 @@ app.get('/getTodo', (req, res) => {
     client.end
 })
 
-app.post('/createTodo', (req, res) => {
+app.post('/tarefas', (req, res) => {
     const tarefa = req.body;
-    client.query(`INSERT INTO public.tarefas (titulo, descricao, datavenc, status, iduser) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 'incompleto', 1)`, (err) => {
+    client.query(`INSERT INTO public.tarefas (titulo, descricao, datavenc, iduser, jacompleta) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
         if(!err){
             console.log("Tarefa registrada com sucesso")
+        } else {
+            console.log(err.message)
+        }
+    })
+    client.end
+})
+
+app.put('/tarefas/:id/:iscompleted', (req, res) => {
+    const userid = req.params.id
+    const isCompleted = req.params.iscompleted
+    client.query(`update tarefas set jacompleta = '${isCompleted=='false' ? true : false}' where id = ${userid}`, (err) => {
+        if(!err){
+            console.log("Tarefa atualizada com sucesso")
+        } else {
+            console.log(err.message)
+        }
+    })
+    client.end
+})
+
+app.delete('/tarefas/:id', (req, res) => {
+    client.query(`delete from tarefas where id=${req.params.id}`, (err) => {
+        if(!err){
+            console.log('Tarefa excluida com sucesso')
         } else {
             console.log(err.message)
         }
