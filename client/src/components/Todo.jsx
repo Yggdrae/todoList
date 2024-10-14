@@ -73,14 +73,14 @@ const Todo = ({ todo, allTodos, setTodos }) => {
     }
 
   return (
-        <div>
+        <div className='List'>
             <div className={!todo.jacompleta ? 'todo-item' : 'todo-completed'} id={todo.id} style={{display: style ? 'flex' : 'none'}}>
               <div className="content" style={{textDecoration: todo.jacompleta ? 'line-through' : ''}} onClick={toggleForm} >
                 <p className='todoTitle'>{todo.titulo}</p>
                 <p className='desc'>Descrição: {todo.descricao}</p>
                 <p className='datavenc'>Vencimento: {date >= today ? date : 'Vencido'}</p>
               </div>
-              <div>
+              <div className='editBtn'>
                 <button onClick={handleComplete}>{todo.jacompleta ? 'Desfazer' : 'Completar'}</button>
                 <button onClick={handleDelete}>Excluir</button>
               </div>

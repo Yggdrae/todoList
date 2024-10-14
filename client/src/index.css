@@ -1,6 +1,6 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  font-family: 'Courier New', monospace;
+  line-height: 1.2;
   font-weight: 400;
 
   color-scheme: light dark;
@@ -20,6 +20,33 @@ body {
 h1 {
   font-size: 2.5em;
   line-height: 1.1;
+  text-align: center;
+}
+
+.loginContainer {
+  margin: 50px auto;
+  padding: 5px 10px 50px;
+  background-color: #efefef;
+  color: #242424;
+  width: 50lvw;
+  height: 50lvh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.user, .pass {
+  display: inherit;
+  flex-direction: column;
+  margin: 15px;
 }
 
 hr {
@@ -97,13 +124,14 @@ button, input, select {
   border-radius: 10px;
   border: 1px solid transparent;
   padding: 10px 20px;
-  font-size: 1em;
+  font-size: 100%;
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
   margin: 5px 5px;
+  text-align: center;
 }
 
 button:hover {
@@ -120,5 +148,46 @@ button:hover {
   }
   button {
     background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 600px) {
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 70%;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .todo-list{
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #efefef;
+    color: #242424;
+    width: 60lvw;
+    border-radius: 20px;
+  }
+
+  button, input, select {
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-size: 70%;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    text-align: center;
+  }
+
+  .searchFilter{
+    flex-direction: column;
+  }
+
+  .editBtn button {
+    width: 90%;
+    padding: 10px;
   }
 }

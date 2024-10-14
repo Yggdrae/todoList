@@ -5,7 +5,7 @@ const router = express.Router();
 client.connect();
 
 // Rota GET para obter todas as tarefas
-router.get('/', (req, res) => {
+router.get('/tarefas', (req, res) => {
     client.query('Select * from tarefas', (err, result) => {
         if (!err) {
             res.json(result.rows);
@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 });
 
 // Rota POST para criar uma nova tarefa
-router.post('/', (req, res) => {
+router.post('/tarefas', (req, res) => {
     const tarefa = req.body;
     client.query(`INSERT INTO public.tarefas (titulo, descricao, datavenc, iduser, jacompleta) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
         if (!err) {
@@ -28,7 +28,7 @@ router.post('/', (req, res) => {
 });
 
 // Rota PUT para atualizar uma tarefa
-router.put('/:id', (req, res) => {
+router.put('/tarefas/:id', (req, res) => {
     const formInfo = req.body;
     client.query(`UPDATE tarefas 
                 SET titulo = '${formInfo.titulo}',
@@ -44,7 +44,7 @@ router.put('/:id', (req, res) => {
 });
 
 // Rota PUT para alterar o status de conclusão de uma tarefa
-router.put('/:id/:iscompleted', (req, res) => {
+router.put('/tarefas/:id/:iscompleted', (req, res) => {
     const userid = req.params.id;
     const isCompleted = req.params.iscompleted === 'false' ? true : false;
     client.query(`UPDATE tarefas SET jacompleta = ${isCompleted} WHERE id = ${userid}`, (err) => {
@@ -57,7 +57,7 @@ router.put('/:id/:iscompleted', (req, res) => {
 });
 
 // Rota DELETE para excluir uma tarefa
-router.delete('/:id', (req, res) => {
+router.delete('/tarefas/:id', (req, res) => {
     client.query(`DELETE FROM tarefas WHERE id=${req.params.id}`, (err) => {
         if (!err) {
             res.send("Tarefa excluída com sucesso");
