@@ -7,15 +7,19 @@ import Filter from './components/Filter'
 import SearchBar from './components/SearchBar'
 
 function App() {
-  const [todos, setTodos] = useState([])
-  const [filter, setFilter] = useState('All')
-  const [search, setSearch] = useState('')
+  const [todos, setTodos] = useState([]) //State para render da lista de tarefas
+  const [filter, setFilter] = useState('All') //State para o componente Filter (filtar por)
+  const [search, setSearch] = useState('') //State para o componente Search (barra de pesquisa)
 
+  //Função assíncrona para trazer as tarefas salvas no banco de dados
+  //e renderizar na página utilizando "setState"
   const fetchAPI = async () => {
     const response = await axios.get('http://localhost:8080/tarefas')
     setTodos(response.data)
   }
 
+  //Hook para utilizar a função assíncrona que renderiza
+  //a lista de tarefas ao acessar a página
   useEffect(() => {
     fetchAPI();
   }, [])
@@ -34,10 +38,12 @@ function App() {
         </div>
         <hr />
         {
+          //Filtra e mapeia todos os items da To-do para então renderizar
+          //um componente "todo" para cada item mapeado
           todos
-          .filter((todo) => todo.titulo.toLowerCase().includes(search.toLocaleLowerCase()))
-          .filter((todo) => filter === 'All' ? true : filter === 'completed' ? todo.jacompleta : !todo.jacompleta)
-          .map((todo, index) => (
+          .filter((todo) => todo.titulo.toLowerCase().includes(search.toLocaleLowerCase())) //Filtro de pesquisa
+          .filter((todo) => filter === 'All' ? true : filter === 'completed' ? todo.jacompleta : !todo.jacompleta) //Filtro de "ordenar por"
+          .map((todo) => (
             <Todo todo={todo} allTodos={todos} setTodos={setTodos} />
           ))
         }

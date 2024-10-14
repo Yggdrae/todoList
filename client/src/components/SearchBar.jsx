@@ -1,5 +1,7 @@
 import React from 'react'
 
+//Componente "barra de pesquisa", disponibilizando a possibilidade de
+//visualização dos itens que contém o texto pesquisado no título
 function SearchBar({ search, setSearch }) {
   return (
     <div>

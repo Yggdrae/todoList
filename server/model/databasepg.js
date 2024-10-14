@@ -1,5 +1,6 @@
 const {Client} = require('pg')
 
+//Define as configurações do servidor do banco de dados
 const client = new Client({
     host: "localhost",
     user: "postgres",

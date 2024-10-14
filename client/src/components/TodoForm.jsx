@@ -2,25 +2,35 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function TodoForm({ todos, setTodos }) {
+    //Constantes para manipulação do estado dos dados a serem enviados
+    //do formulário de criação de tarefa
     const [formData, setFormData] = useState({
         titulo: '',
         descricao: '',
         datavenc: ''
     })
 
+    //Função para alterar o estado dos dados a serem enviados
+    //do formulário de criação de tarefa
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    //Função assíncrona para lidar com a confirmação da edição inline da tarefa
     const handleSubmit = async (e) => {
+        //Impede a página de ser atualizada
         e.preventDefault()
+        //Constante que recebe todas as tarefas, adicionando a tarefa criada
         const newTodos = [...todos, formData]
+        //Renderiza novamente as tarefas na página, agora com a tarefa criada
         setTodos(newTodos)
+        //Apaga os campos do forms de criação de tarefa
         setFormData({
             titulo: '',
             descricao: '',
             datavenc: ''
         })
+        //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
         const response = await axios.post('http://localhost:8080/tarefas', formData)
     }
 
