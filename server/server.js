@@ -7,14 +7,14 @@ const corsOptions = {
 };
 
 // Importa o controller
-const router = require('./controller/tarefas.controller');
+const router = require('./controller/controller.js');
 
 // Middlewares
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 // Rotas
-app.use('/tarefas', router);
+app.use('/', router);
 
 // Servidor
 app.listen(8080, () => {
