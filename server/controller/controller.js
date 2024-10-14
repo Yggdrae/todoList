@@ -4,6 +4,17 @@ const router = express.Router();
 
 client.connect();
 
+router.post('/login', (req, res) => {
+    client.query(`select * from users where nome = '${req.body.usuario}' and senha = '${req.body.senha}'`, (err, result) => {
+        if(!err){
+            res.send(result.rows)
+            console.log(result.rows)
+        } else {
+            res.status(500).send(err.message)
+        }
+    })
+})
+
 // Rota GET para obter todas as tarefas
 router.get('/tarefas', (req, res) => {
     client.query('Select * from tarefas', (err, result) => {
