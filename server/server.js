@@ -7,7 +7,7 @@ const corsOptions = {
 };
 
 // Importa o controller
-const router = require('./controller/controller.js');
+const router = require('./routes');
 
 // Middlewares
 app.use(bodyParser.json());
