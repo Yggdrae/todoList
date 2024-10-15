@@ -27,12 +27,23 @@ function Login() {
             <h1>Entrar</h1>
             <form className='loginForm' onSubmit={handleSubmit}>
                 <div className="user">
+
                     <label htmlFor="username">Nome de usuário: </label>
-                    <input type="text" id='username' name='usuario' autoComplete='username' onChange={handleChange} />
+                    <input type="text" 
+                    id='username' 
+                    name='usuario' 
+                    autoComplete='username' 
+                    onChange={handleChange} />
+                
                 </div>
                 <div className="pass">
+
                     <label htmlFor="password">Senha: </label>
-                    <input type="password" id='password' name='senha' onChange={handleChange} />
+                    <input type="password" 
+                    id='password' 
+                    name='senha' 
+                    onChange={handleChange} />
+
                 </div>
                 <button type='submit'>Entrar</button>
             </form>

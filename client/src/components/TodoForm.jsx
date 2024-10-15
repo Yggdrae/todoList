@@ -21,9 +21,9 @@ function TodoForm({ todos, setTodos }) {
         //Impede a página de ser atualizada
         e.preventDefault()
         //Constante que recebe todas as tarefas, adicionando a tarefa criada
-        const newTodos = [...todos, formData]
+        //const newTodos = [...todos, formData]
         //Renderiza novamente as tarefas na página, agora com a tarefa criada
-        setTodos(newTodos)
+        //setTodos(newTodos)
         //Apaga os campos do forms de criação de tarefa
         setFormData({
             titulo: '',
@@ -31,7 +31,9 @@ function TodoForm({ todos, setTodos }) {
             datavenc: ''
         })
         //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
-        const response = await axios.post('http://localhost:8080/tarefas', formData)
+        await axios.post('http://localhost:8080/tarefas', formData)
+        const newTodos = await axios.get('http://localhost:8080/tarefas')
+        setTodos(newTodos.data)
     }
 
   return (
@@ -56,6 +58,7 @@ function TodoForm({ todos, setTodos }) {
             value={formData.datavenc}
             onChange={handleChange}
             placeholder='Data de vencimento da tarefa'
+            onKeyDown={(e) => e.preventDefault()}
             required></input>
 
             <button className='addTodo' type='submit' onSubmit={handleSubmit}>Adicionar tarefa</button>

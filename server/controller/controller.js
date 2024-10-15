@@ -1,74 +1,81 @@
-const express = require('express');
 const client = require('../model/databasepg');
-const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 client.connect();
 
-router.post('/login', (req, res) => {
-    client.query(`select * from users where nome = '${req.body.usuario}' and senha = '${req.body.senha}'`, (err, result) => {
-        if(!err){
-            res.send(result.rows)
-            console.log(result.rows)
+// Função para fazer login
+const login = (req, res) => {
+    client.query(`SELECT * FROM users WHERE nome = '${req.body.usuario}' AND senha = '${req.body.senha}'`, (err, result) => {
+        if (!err) {
+            if (result.rowCount > 0) {
+                const user = result.rows[0];
+                const accessToken = jwt.sign({ id: user.id }, 'chaveSecreta');
+                res.json({
+                    id: user.id,
+                    username: user.nome,
+                    accessToken,
+                });
+                console.log(accessToken);
+            } else {
+                res.status(401).send('Usuário ou senha inválidos');
+            }
         } else {
-            res.status(500).send(err.message)
+            res.status(500).send(err.message);
         }
-    })
-})
+    });
+};
 
-// Rota GET para obter todas as tarefas
-router.get('/tarefas', (req, res) => {
-    client.query('Select * from tarefas', (err, result) => {
+// Função para obter todas as tarefas
+const getTarefas = (req, res) => {
+    client.query('SELECT * FROM tarefas', (err, result) => {
         if (!err) {
             res.json(result.rows);
         } else {
             res.status(500).send(err.message);
         }
     });
-});
+};
 
-// Rota POST para criar uma nova tarefa
-router.post('/tarefas', (req, res) => {
+// Função para criar uma nova tarefa
+const createTarefa = (req, res) => {
     const tarefa = req.body;
-    client.query(`INSERT INTO public.tarefas (titulo, descricao, datavenc, iduser, jacompleta) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
+    client.query(`INSERT INTO tarefas (titulo, descricao, datavenc, iduser, jacompleta) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
         if (!err) {
             res.status(201).send("Tarefa registrada com sucesso");
         } else {
             res.status(500).send(err.message);
         }
     });
-});
+};
 
-// Rota PUT para atualizar uma tarefa
-router.put('/tarefas/:id', (req, res) => {
+// Função para atualizar uma tarefa
+const updateTarefa = (req, res) => {
     const formInfo = req.body;
-    client.query(`UPDATE tarefas 
-                SET titulo = '${formInfo.titulo}',
-                    descricao = '${formInfo.descricao}',
-                    datavenc = '${formInfo.datavenc}'
-                WHERE id = ${req.params.id}`, (err) => {
+    client.query(`UPDATE tarefas SET titulo = '${formInfo.titulo}', descricao = '${formInfo.descricao}', datavenc = '${formInfo.datavenc}' WHERE id = ${req.params.id}`, (err) => {
         if (!err) {
             res.send("Tarefa atualizada com sucesso");
         } else {
             res.status(500).send(err.message);
         }
     });
-});
+};
 
-// Rota PUT para alterar o status de conclusão de uma tarefa
-router.put('/tarefas/:id/:iscompleted', (req, res) => {
+// Função para alterar o status de conclusão de uma tarefa
+const updateTarefaStatus = (req, res) => {
     const userid = req.params.id;
     const isCompleted = req.params.iscompleted === 'false' ? true : false;
     client.query(`UPDATE tarefas SET jacompleta = ${isCompleted} WHERE id = ${userid}`, (err) => {
         if (!err) {
             res.send("Status de conclusão atualizado com sucesso");
         } else {
+            console.log('deu erro aqui')
             res.status(500).send(err.message);
         }
     });
-});
+};
 
-// Rota DELETE para excluir uma tarefa
-router.delete('/tarefas/:id', (req, res) => {
+// Função para excluir uma tarefa
+const deleteTarefa = (req, res) => {
     client.query(`DELETE FROM tarefas WHERE id=${req.params.id}`, (err) => {
         if (!err) {
             res.send("Tarefa excluída com sucesso");
@@ -76,6 +83,13 @@ router.delete('/tarefas/:id', (req, res) => {
             res.status(500).send(err.message);
         }
     });
-});
+};
 
-module.exports = router;
+module.exports = {
+    login,
+    getTarefas,
+    createTarefa,
+    updateTarefa,
+    updateTarefaStatus,
+    deleteTarefa,
+};
