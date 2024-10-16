@@ -5,6 +5,8 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
+  background-image: url('../public/bg.jpg');
+  background-size: cover;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -54,6 +56,17 @@ hr {
 .todoTitle {
   font-size: 20px;
   font-weight: 800;
+}
+
+.createForm{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.addTodo{
+  width: 15lvw;
 }
 
 .searchFilter {
@@ -142,7 +155,7 @@ button:hover {
     margin: auto;
   }
 
-  button, input, select {
+  button, input, select, .addTodo {
     font-size: 70%;
   }
 
