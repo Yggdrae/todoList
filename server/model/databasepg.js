@@ -12,9 +12,10 @@ const client = new Client({
 client.query(`CREATE TABLE IF NOT EXISTS users
     (
         id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-        nome text NOT NULL,
+        username text NOT NULL,
         email text NOT NULL,
-        senha text NOT NULL,
+        password text NOT NULL,
+        isAdmin boolean NOT NULL,
         PRIMARY KEY (id)
     );
     
@@ -24,10 +25,10 @@ client.query(`CREATE TABLE IF NOT EXISTS users
 client.query(`CREATE TABLE IF NOT EXISTS tarefas
     (
         id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
-        titulo text NOT NULL,
-        descricao text NOT NULL,
-        datavenc date NOT NULL,
-        jacompleta boolean NOT NULL,
+        title text NOT NULL,
+        description text NOT NULL,
+        date date NOT NULL,
+        iscomplete boolean NOT NULL,
         iduser integer NOT NULL,
         CONSTRAINT iduser FOREIGN KEY (iduser)
             REFERENCES users (id) MATCH SIMPLE

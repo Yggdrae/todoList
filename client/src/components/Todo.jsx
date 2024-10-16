@@ -5,17 +5,17 @@ const Todo = ({ todo, allTodos, setTodos }) => {
 
     const locale = 'pt-br'
     const today = new Date().toLocaleDateString(locale) 
-    const date = new Date(todo.datavenc).toLocaleDateString(locale)
+    const date = new Date(todo.date).toLocaleDateString(locale)
 
     //Função assíncrona para lidar com o clique do usuário no botão de completar tarefa
     const handleComplete = async (e) => {
         const completeTodos = [...allTodos]
         //Mapeia os itens e altera o status de completo do item no qual o botão foi clicado
-        completeTodos.map(item => item.id === todo.id ? (item.jacompleta = !item.jacompleta) : item)
+        completeTodos.map(item => item.id === todo.id ? (item.iscomplete = !item.iscomplete) : item)
         //Renderiza novamente os itens na página, agora com o status atualizado do item clicado
         setTodos(completeTodos)
         //Envia o id do item para o servidor realizar a atualização do status de conclusão do item no banco de dados
-        await axios.put(`http://localhost:8080/tarefas/${todo.id}/${!todo.jacompleta}`)
+        await axios.put(`http://localhost:8080/tarefas/${todo.id}/${!todo.iscomplete}`)
     }
 
     //Função assíncrona para lidar com o clique do usuário no botão de excluir tarefa
@@ -40,9 +40,9 @@ const Todo = ({ todo, allTodos, setTodos }) => {
     //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de edição inline da tarefa
     const [formData, setFormData] = useState({
-        titulo: todo.titulo,
-        descricao: todo.descricao,
-        datavenc: todo.datavenc
+        titulo: todo.title,
+        descricao: todo.description,
+        datavenc: todo.date
     })
 
     //Função para alterar o estado dos dados a serem enviados
@@ -70,25 +70,25 @@ const Todo = ({ todo, allTodos, setTodos }) => {
 
   return (
         <div className='List'>
-            <div className={!todo.jacompleta ? 'todo-item' : 'todo-completed'} id={todo.id} style={{display: style ? 'flex' : 'none'}}>
+            <div className={!todo.iscomplete ? 'todo-item' : 'todo-completed'} id={todo.id} style={{display: style ? 'flex' : 'none'}}>
               
               <div className="content" 
-              style={{textDecoration: todo.jacompleta ? 'line-through' : ''}} 
+              style={{textDecoration: todo.iscomplete ? 'line-through' : ''}} 
               onClick={toggleForm} >
               
-                <p className='todoTitle'>{todo.titulo}</p>
-                <p className='desc'>Descrição: {todo.descricao}</p>
+                <p className='todoTitle'>{todo.title}</p>
+                <p className='desc'>Descrição: {todo.description}</p>
                 <p className='datavenc'>Vencimento: {date >= today ? date : 'Vencido'}</p>
              
               </div>
 
               <div className='editBtn'>
-                <button onClick={handleComplete}>{todo.jacompleta ? 'Desfazer' : 'Completar'}</button>
+                <button onClick={handleComplete}>{todo.iscomplete ? 'Desfazer' : 'Completar'}</button>
                 <button onClick={handleDelete}>Excluir</button>
                 </div>
             </div>
 
-            <form className={!todo.jacompleta ? 'todo-item' : 'todo-completed'} 
+            <form className={!todo.iscomplete ? 'todo-item' : 'todo-completed'} 
                 style={{display: !style ? 'flex' : 'none'}} 
                 onSubmit={handleEdition}>
 

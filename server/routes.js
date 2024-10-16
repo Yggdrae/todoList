@@ -5,6 +5,9 @@ const controller = require('./controller/controller');
 // Rota de login
 router.post('/login', controller.login);
 
+// Rota de Cadastro
+router.post('/signup', controller.signUp)
+
 // Rota GET para obter todas as tarefas
 router.get('/tarefas', controller.getTarefas);
 

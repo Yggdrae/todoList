@@ -1,13 +1,11 @@
 :root {
   font-family: 'Courier New', monospace;
   line-height: 1.2;
-  font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  background-image: url('../public/bg.jpg');
+  background-image: url('../bg.jpg');
   background-size: cover;
-  font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -23,20 +21,17 @@ h1 {
   text-align: center;
 }
 
-.loginContainer, .todo-list {
+.formContainer {
   margin: 50px auto;
   padding: 50px;
   background-color: #efefef;
   color: #242424;
-  width: 60vw;
+  width: 40vw;
   border-radius: 20px;
+  text-align: center;
 }
 
-.loginContainer {
-  padding-bottom: 50px;
-}
-
-.loginForm {
+.loginForm, .editForm {
   display: flex;
   flex-direction: column;
   width: 70%;
@@ -49,6 +44,21 @@ h1 {
   margin: 15px;
 }
 
+.submitBtn {
+  margin: 50px;
+  height: 60px;
+  transition: 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #303030;
+}
+
+.formError {
+  margin: 0 auto;
+  color: #ff0000;
+}
+
 hr {
   margin: 20px 0;
 }
@@ -58,26 +68,18 @@ hr {
   font-weight: 800;
 }
 
-.createForm{
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.addTodo{
-  width: 15lvw;
-}
-
-.searchFilter {
+.createForm, .searchFilter {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
+.addTodo {
+  width: 15vw;
+}
+
 .todo-item, .todo-completed {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin: 20px 0;
@@ -102,12 +104,6 @@ hr {
   background-color: #2e6930;
 }
 
-.editForm {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-}
-
 .content {
   text-align: left;
 }
@@ -121,7 +117,6 @@ button, input, select {
   border: 1px solid transparent;
   padding: 10px 20px;
   font-size: 100%;
-  font-weight: 500;
   background-color: #1a1a1a;
   transition: border-color 0.25s;
   margin: 5px;
@@ -149,9 +144,8 @@ button:hover {
 }
 
 @media (max-width: 600px) {
-  .loginForm {
+  .loginForm, .editForm {
     width: 90%;
-    height: 70%;
     margin: auto;
   }
 

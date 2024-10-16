@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
-import Login from './components/Login'
-import List from './components/List'
-import './App.css'
+import React from 'react'
+import { Outlet } from 'react-router-dom'
 
 function App() {
 
   return (
     <>
-      <Login />
+      <div className='formContainer'>
+        <Outlet />
+      </div>
     </>
   )
 }

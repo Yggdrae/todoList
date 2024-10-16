@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Todo from './todo'
-import TodoForm from './TodoForm'
-import Filter from './Filter'
-import SearchBar from './SearchBar'
+import Todo from '../components/todo'
+import TodoForm from '../components/TodoForm'
+import Filter from '../components/Filter'
+import SearchBar from '../components/SearchBar'
 
 function List() {
+  
   const [todos, setTodos] = useState([]) //State para render da lista de tarefas
   const [filter, setFilter] = useState('All') //State para o componente Filter (filtar por)
   const [search, setSearch] = useState('') //State para o componente Search (barra de pesquisa)
@@ -24,9 +25,9 @@ function List() {
   }, [])
   
   return (
-    <div className='Page'>
-      <h1>Lista de Tarefas</h1>
-      <div className="todo-list">
+      <>
+        <h1>Lista de Tarefas</h1>
+        <hr />
         <h2>Adicionar Tarefa</h2>
         <TodoForm todos={todos} setTodos={setTodos}/>
         <hr />
@@ -40,14 +41,13 @@ function List() {
           //Filtra e mapeia todos os items da To-do para então renderizar
           //um componente "todo" para cada item mapeado
           todos
-          .filter((todo) => todo.titulo.toLowerCase().includes(search.toLocaleLowerCase())) //Filtro de pesquisa
-          .filter((todo) => filter === 'All' ? true : filter === 'completed' ? todo.jacompleta : !todo.jacompleta) //Filtro de "ordenar por"
+          .filter((todo) => todo.title.toLowerCase().includes(search.toLocaleLowerCase())) //Filtro de pesquisa
+          .filter((todo) => filter === 'All' ? true : filter === 'completed' ? todo.iscomplete : !todo.iscomplete) //Filtro de "ordenar por"
           .map((todo) => (
             <Todo todo={todo} allTodos={todos} setTodos={setTodos} />
           ))
         }
-      </div>
-    </div>
+      </>
   )
 }
 
