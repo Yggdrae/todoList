@@ -4,8 +4,8 @@ import axios from 'axios'
 const Todo = ({ todo, allTodos, setTodos }) => {
 
     const locale = 'pt-br'
-    const today = new Date().toLocaleDateString(locale)
-    const date = new Date(todo.datavenc.split('T')[0]).toLocaleDateString(locale)
+    const today = new Date().toLocaleDateString(locale) 
+    const date = new Date(todo.datavenc).toLocaleDateString(locale)
 
     //Função assíncrona para lidar com o clique do usuário no botão de completar tarefa
     const handleComplete = async (e) => {

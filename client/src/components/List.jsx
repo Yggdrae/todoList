@@ -24,7 +24,7 @@ function List() {
   }, [])
   
   return (
-    <>
+    <div className='Page'>
       <h1>Lista de Tarefas</h1>
       <div className="todo-list">
         <h2>Adicionar Tarefa</h2>
@@ -47,7 +47,7 @@ function List() {
           ))
         }
       </div>
-    </>
+    </div>
   )
 }
 

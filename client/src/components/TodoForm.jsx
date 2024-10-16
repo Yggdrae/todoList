@@ -37,9 +37,10 @@ function TodoForm({ todos, setTodos }) {
     }
 
   return (
-    <div className="form">
-        <form onSubmit={handleSubmit}>
+    <div className="createForm">
+        <form  onSubmit={handleSubmit}>
             <input type='text' 
+            className='addTodo' 
             name='titulo'
             value={formData.titulo}
             onChange={handleChange}
@@ -47,6 +48,7 @@ function TodoForm({ todos, setTodos }) {
             required></input>
 
             <input type='text'
+            className='addTodo' 
             name='descricao'
             value={formData.descricao}
             onChange={handleChange}
@@ -54,6 +56,7 @@ function TodoForm({ todos, setTodos }) {
             required></input>
 
             <input type='date'
+            className='addTodo' 
             name='datavenc'
             value={formData.datavenc}
             onChange={handleChange}
@@ -61,7 +64,9 @@ function TodoForm({ todos, setTodos }) {
             onKeyDown={(e) => e.preventDefault()}
             required></input>
 
-            <button className='addTodo' type='submit' onSubmit={handleSubmit}>Adicionar tarefa</button>
+            <button className='addTodo' 
+            type='submit' 
+            onSubmit={handleSubmit}>Adicionar tarefa</button>
         </form>
     </div>
   )
