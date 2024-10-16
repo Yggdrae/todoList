@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Login() {
 
@@ -16,14 +17,16 @@ function Login() {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    const navigate = useNavigate()
+
     const handleSubmit = async (e) => {
         e.preventDefault()
-        await axios.post('http://localhost:8080/login', formData)
+        const response = (await axios.post('http://localhost:8080/login', formData)).data
+        return navigate("/list")
     }
 
   return (
     <>
-        <div className='loginContainer'>
             <h1>Entrar</h1>
             <form className='loginForm' onSubmit={handleSubmit}>
                 <div className="user">
@@ -33,7 +36,8 @@ function Login() {
                     id='username' 
                     name='usuario' 
                     autoComplete='username' 
-                    onChange={handleChange} />
+                    onChange={handleChange}
+                    required />
                 
                 </div>
                 <div className="pass">
@@ -42,12 +46,15 @@ function Login() {
                     <input type="password" 
                     id='password' 
                     name='senha' 
-                    onChange={handleChange} />
+                    onChange={handleChange} 
+                    required/>
 
                 </div>
-                <button type='submit'>Entrar</button>
+
+                <button type='submit' className='submitBtn'>Entrar</button>
+                <p>Não possui uma conta?</p>
+                <Link to='/register'>Registre-se</Link>
             </form>
-        </div>
     </>
   )
 }
