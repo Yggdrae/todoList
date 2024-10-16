@@ -1,28 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { Context } from '../AuthContext'
 
 function Login() {
-
-    //Constantes para manipulação do estado dos dados a serem enviados
-    //do formulário de criação de tarefa
-    const [formData, setFormData] = useState({
-        usuario: '',
-        senha: ''
-    })
+    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData } = useContext(Context)
 
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
-    }
-
-    const navigate = useNavigate()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const response = (await axios.post('http://localhost:8080/login', formData)).data
-        return navigate("/list")
     }
 
   return (

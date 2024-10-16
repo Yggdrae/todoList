@@ -52,8 +52,7 @@ const getTarefas = (req, res) => {
 // Função para criar uma nova tarefa
 const createTarefa = (req, res) => {
     const tarefa = req.body;
-    console.log('chegou aqui')
-    client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
+    client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 2, false)`, (err) => {
         if (!err) {
             res.status(201).send("Tarefa registrada com sucesso");
         } else {

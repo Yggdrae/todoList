@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Register() {
+
 
      //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de criação de tarefa
@@ -68,13 +69,15 @@ function Register() {
             return true;
         }
     }
+    
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(!validateForm()){
             const response = await axios.post('http://localhost:8080/signup', formData)
             alert(response.data)
-            console.log(response)
+            if(response.data == 'Usuário cadastrado com sucesso!') return navigate('/')
         }
     }
 
