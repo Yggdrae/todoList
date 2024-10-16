@@ -30,9 +30,9 @@ const signUp = (req, res) => {
             if(result.rowCount == 0){
                 client.query(`INSERT INTO users (username, email, password, isAdmin) 
                     VALUES ('${req.body.usuario}', '${req.body.email}', '${req.body.senha}', 'false')`)
-                    res.status(201).send('Usuário cadastrado com sucesso!')
+                    res.end('Usuário cadastrado com sucesso!')
             }
-            else res.status(401).send('Nome de usuário e/ou email já em uso')
+            else res.end('Nome de usuário ou email em uso.');
         }
         else res.status(500).send(err.message)
     })
@@ -52,7 +52,8 @@ const getTarefas = (req, res) => {
 // Função para criar uma nova tarefa
 const createTarefa = (req, res) => {
     const tarefa = req.body;
-    client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 2, false)`, (err) => {
+    console.log('chegou aqui')
+    client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 1, false)`, (err) => {
         if (!err) {
             res.status(201).send("Tarefa registrada com sucesso");
         } else {

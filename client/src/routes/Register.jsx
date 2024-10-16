@@ -72,7 +72,9 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(!validateForm()){
-            await axios.post('http://localhost:8080/signup', formData)
+            const response = await axios.post('http://localhost:8080/signup', formData)
+            alert(response.data)
+            console.log(response)
         }
     }
 
