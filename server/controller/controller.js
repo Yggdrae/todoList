@@ -9,10 +9,8 @@ const login = (req, res) => {
         if (!err) {
             if (result.rowCount > 0) {
                 const user = result.rows[0];
-                const accessToken = jwt.sign({ id: user.id, username: user.username }, 'chaveSecreta');
+                const accessToken = jwt.sign({ id: user.id, username: user.username }, process.env.SECRET);
                 res.json({
-                    id: user.id,
-                    username: user.username,
                     accessToken,
                 });
             } else {
@@ -52,6 +50,8 @@ const getTarefas = (req, res) => {
 // Função para criar uma nova tarefa
 const createTarefa = (req, res) => {
     const tarefa = req.body;
+    const decodedToken = jwt.verify(tarefa.token, process.env.SECRET, (e))
+
     client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', 2, false)`, (err) => {
         if (!err) {
             res.status(201).send("Tarefa registrada com sucesso");

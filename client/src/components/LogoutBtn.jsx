@@ -8,8 +8,6 @@ function LogoutBtn() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    setAuthenticated(false); // Alterado para definir como false ao sair
-    localStorage.removeItem('token');
     return navigate('/');
   }
 

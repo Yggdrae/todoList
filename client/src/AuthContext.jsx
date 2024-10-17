@@ -24,8 +24,13 @@ function AuthProvider({ children }) {
         return navigate("/list")
     }
 
+    const handleExit = () => {
+      setAuthenticated(false); // Alterado para definir como false ao sair
+      localStorage.removeItem('token');
+    }
+
   return (
-    <Context.Provider value={{ authenticated, setAuthenticated, handleSubmit, formData, setFormData }}>
+    <Context.Provider value={{ authenticated, setAuthenticated, handleSubmit, formData, setFormData, handleExit }}>
         {children}
     </Context.Provider>
   )

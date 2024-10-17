@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../AuthContext'
 
 function Login() {
-    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData } = useContext(Context)
+    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData, handleExit } = useContext(Context)
    
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
@@ -11,8 +11,11 @@ function Login() {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    console.log(authenticated)
-    console.log(localStorage.getItem('token'))
+    useEffect(() => {
+        handleExit;
+      }, [])
+
+      
   return (
     <>
             <h1>Entrar</h1>
