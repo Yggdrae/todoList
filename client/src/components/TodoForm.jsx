@@ -64,7 +64,7 @@ function TodoForm({ todos, setTodos }) {
             onKeyDown={(e) => e.preventDefault()}
             required></input>
 
-            <button className='addTodo' 
+            <button 
             type='submit' 
             onSubmit={handleSubmit}>Adicionar tarefa</button>
         </form>

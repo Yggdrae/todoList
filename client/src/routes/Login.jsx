@@ -1,17 +1,18 @@
 import React, { useContext, useState } from 'react'
-import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../AuthContext'
 
 function Login() {
     const { authenticated, setAuthenticated, handleSubmit, formData, setFormData } = useContext(Context)
-
+   
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    console.log(authenticated)
+    console.log(localStorage.getItem('token'))
   return (
     <>
             <h1>Entrar</h1>
