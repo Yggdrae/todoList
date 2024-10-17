@@ -1,17 +1,21 @@
-import React, { useContext, useState } from 'react'
-import axios from 'axios'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../AuthContext'
 
 function Login() {
-    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData } = useContext(Context)
-
+    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData, handleExit } = useContext(Context)
+   
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    useEffect(() => {
+        handleExit;
+      }, [])
+
+      
   return (
     <>
             <h1>Entrar</h1>

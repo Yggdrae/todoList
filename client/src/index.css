@@ -4,7 +4,7 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  background-image: url('../bg.jpg');
+  background-image: url('../bg.jpeg');
   background-size: cover;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,6 +13,12 @@
 
 body {
   margin: 0;
+}
+
+.logoutBtn{
+  position: absolute;
+  top: .5%;
+  left: .5%;
 }
 
 h1 {
@@ -24,18 +30,28 @@ h1 {
 .formContainer {
   margin: 50px auto;
   padding: 50px;
-  background-color: #efefef;
-  color: #242424;
-  width: 40vw;
+  background-color: #121212;
+  color: #efefef;
+  width: 50vw;
   border-radius: 20px;
   text-align: center;
+  border: 1px solid #8b8b8b;
 }
 
 .loginForm, .editForm {
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 60%;
   margin: 20px auto;
+}
+
+.editForm{
+  margin: 0px auto auto 0px;
+}
+
+.editBtn {
+  display: flex;
+  flex-direction: column;
 }
 
 .user, .pass {
@@ -86,26 +102,38 @@ hr {
   padding: 20px;
   border-radius: 10px;
   transition: background-color 0.3s ease;
+  border: 1px solid #8b8b8b;
 }
 
 .todo-item {
   background-color: rgba(159, 159, 159, 0.31);
 }
 
-.todo-item:hover {
-  background-color: rgba(159, 159, 159, 0.71);
-}
-
 .todo-completed {
-  background-color: #357a38;
+  background-color: #143300;
 }
 
-.todo-completed:hover {
+.deleteBtn, .completeBtn {
+  transition: background-color .5s ease;
+  background-color: #121212;
+}
+
+.completeBtn:hover {
   background-color: #2e6930;
+}
+
+.deleteBtn:hover {
+  background-color: #f45d5d;
+}
+
+.editForm input{
+  background-color: #121212;
 }
 
 .content {
   text-align: left;
+  word-wrap: break-word;
+  width: 60%;
 }
 
 p {
@@ -114,10 +142,10 @@ p {
 
 button, input, select {
   border-radius: 10px;
-  border: 1px solid transparent;
+  border: 1px solid #8b8b8b;
   padding: 10px 20px;
   font-size: 100%;
-  background-color: #1a1a1a;
+  background-color: #3f3f3f;
   transition: border-color 0.25s;
   margin: 5px;
   text-align: center;
@@ -128,24 +156,18 @@ button:hover {
   cursor: pointer;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  
-  a:hover {
-    color: #747bff;
-  }
-  
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
 @media (max-width: 600px) {
-  .loginForm, .editForm {
-    width: 90%;
+  .content{
+   font-size: 70% 
+  }
+
+  .editForm {
+    width: 60%;
+    margin: auto;
+  }
+
+  .loginForm {
+    width: 100%;
     margin: auto;
   }
 

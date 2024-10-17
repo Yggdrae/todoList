@@ -8,8 +8,6 @@ function AuthProvider({ children }) {
     const navigate = useNavigate();
     const [ authenticated, setAuthenticated ] = useState(false)
 
-
-
     //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const [formData, setFormData] = useState({
@@ -22,11 +20,17 @@ function AuthProvider({ children }) {
         const response = (await axios.post('http://localhost:8080/login', formData)).data.accessToken
         localStorage.setItem('token', JSON.stringify(response))
         axios.defaults.headers.Authorization = `Bearer ${response}`
+        setAuthenticated(true)
         return navigate("/list")
     }
 
+    const handleExit = () => {
+      setAuthenticated(false); // Alterado para definir como false ao sair
+      localStorage.removeItem('token');
+    }
+
   return (
-    <Context.Provider value={{ authenticated, setAuthenticated, handleSubmit, formData, setFormData }}>
+    <Context.Provider value={{ authenticated, setAuthenticated, handleSubmit, formData, setFormData, handleExit }}>
         {children}
     </Context.Provider>
   )

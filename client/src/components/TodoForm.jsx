@@ -28,7 +28,8 @@ function TodoForm({ todos, setTodos }) {
         setFormData({
             titulo: '',
             descricao: '',
-            datavenc: ''
+            datavenc: '',
+            token: localStorage.getItem('token')
         })
         //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
         await axios.post('http://localhost:8080/tarefas', formData)
@@ -64,7 +65,7 @@ function TodoForm({ todos, setTodos }) {
             onKeyDown={(e) => e.preventDefault()}
             required></input>
 
-            <button className='addTodo' 
+            <button 
             type='submit' 
             onSubmit={handleSubmit}>Adicionar tarefa</button>
         </form>

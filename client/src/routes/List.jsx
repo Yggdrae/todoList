@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import Todo from '../components/todo'
 import TodoForm from '../components/TodoForm'
 import Filter from '../components/Filter'
 import SearchBar from '../components/SearchBar'
+import LogoutBtn from '../components/LogoutBtn'
+import { Context } from '../AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 function List() {
-  
+  const navigate = useNavigate();
+  const { authenticated, setAuthenticated } = useContext(Context);
   const [todos, setTodos] = useState([]) //State para render da lista de tarefas
   const [filter, setFilter] = useState('All') //State para o componente Filter (filtar por)
   const [search, setSearch] = useState('') //State para o componente Search (barra de pesquisa)
@@ -18,14 +22,23 @@ function List() {
     setTodos(response.data)
   }
 
-  //Hook para utilizar a função assíncrona que renderiza
-  //a lista de tarefas ao acessar a página
+  console.log(authenticated)
+  console.log(localStorage.getItem('token'))
+  //Hook para verificar autentucação do usuário e redirecioná-lo caso o mesmo não
+  //tenha sido autenticado, e utilizar a função assíncrona que renderiza a lista
+  //de tarefas ao acessar a página
   useEffect(() => {
+    if(localStorage.getItem('token') == null || authenticated == false){
+      alert('Usuário não foi autenticado, redirecionando')
+      return navigate('/')
+    }
+
     fetchAPI();
   }, [])
   
   return (
       <>
+        <LogoutBtn />
         <h1>Lista de Tarefas</h1>
         <hr />
         <h2>Adicionar Tarefa</h2>
