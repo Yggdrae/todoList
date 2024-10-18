@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+//Componente formulário de criação de tarefas
 function TodoForm({ todos, setTodos }) {
     //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de criação de tarefa
@@ -20,10 +21,6 @@ function TodoForm({ todos, setTodos }) {
     const handleAdd = async (e) => {
         //Impede a página de ser atualizada
         e.preventDefault()
-        //Constante que recebe todas as tarefas, adicionando a tarefa criada
-        //const newTodos = [...todos, formData]
-        //Renderiza novamente as tarefas na página, agora com a tarefa criada
-        //setTodos(newTodos)
         //Apaga os campos do forms de criação de tarefa
         setFormData({
             titulo: '',
@@ -32,6 +29,7 @@ function TodoForm({ todos, setTodos }) {
         })
         //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
         await axios.post('http://localhost:8080/tarefas', formData)
+        //Busca os itens atualizados e renderiza novamente na pag
         const newTodos = await axios.get('http://localhost:8080/tarefas')
         setTodos(newTodos.data)
     }

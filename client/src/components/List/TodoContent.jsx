@@ -1,6 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
+//Componente de conteúdos dentro de cada tarefa
 function Item({ toggleForm, todo, allTodos, setTodos }) {
 
     const locale = 'pt-br'
@@ -29,6 +30,8 @@ function Item({ toggleForm, todo, allTodos, setTodos }) {
         setTodos(newTodos.data)
     }
 
+    //Função para realizar comparação das datas e retornar o que será renderizado na
+    //linha "vencimento da tarefa"
     function handleDateComparison(todoDate, todayDate){
       if(todoDate.getTime() >= todayDate.getTime())
         return 'Vencimento: ' + todoDate.toLocaleDateString(locale)

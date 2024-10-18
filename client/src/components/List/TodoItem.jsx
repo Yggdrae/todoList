@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import Item from './Item'
+import TodoContent from './TodoContent'
 import EditForm from './EditForm'
 
-const Todo = ({ todo, allTodos, setTodos }) => {
+const TodoItem = ({ todo, allTodos, setTodos }) => {
 
     const [style, setStyle] = useState(true)
     //Função para alternar o display do forms de edição do item inline e
@@ -15,7 +15,7 @@ const Todo = ({ todo, allTodos, setTodos }) => {
   return (
         <div className='List'>
             { style ? 
-            <Item  toggleForm={toggleForm} 
+            <TodoContent  toggleForm={toggleForm} 
             todo={todo} 
             allTodos={allTodos}
             setTodos={setTodos} />
@@ -30,4 +30,4 @@ const Todo = ({ todo, allTodos, setTodos }) => {
   )
 }
 
-export default Todo
+export default TodoItem

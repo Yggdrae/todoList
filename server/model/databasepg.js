@@ -9,6 +9,7 @@ const client = new Client({
     database: "postgres"
 })
 
+//Cria a tabela de usuários
 client.query(`CREATE TABLE IF NOT EXISTS users
     (
         id integer NOT NULL GENERATED ALWAYS AS IDENTITY,
@@ -20,7 +21,8 @@ client.query(`CREATE TABLE IF NOT EXISTS users
     
     ALTER TABLE IF EXISTS users
         OWNER to postgres;`)
-    
+
+//Cria a tabela de tarefas
 client.query(`CREATE TABLE IF NOT EXISTS tarefas
     (
         id integer NOT NULL GENERATED ALWAYS AS IDENTITY,

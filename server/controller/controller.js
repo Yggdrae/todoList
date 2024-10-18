@@ -3,14 +3,17 @@ const jwt = require('jsonwebtoken');
 
 client.connect();
 
+// Função para verificação da validade do token
 function verifyToken(token){
     try {
-        const decoded = jwt.verify(token, process.env.SECRET); //Verifica/decodifica o token caso o mesmo esteja válido
+        //Verifica/decodifica o token caso o mesmo esteja válido
+        const decoded = jwt.verify(token, process.env.SECRET); 
         const id = decoded.id
         return id;
     }
     catch (err) {
-        console.error('Erro ao decodificar: ', err.message) //caso o token esteja inválido, mostra a mensagem no console.
+        //caso o token esteja inválido, mostra a mensagem no console.
+        console.error('Erro ao decodificar: ', err.message) 
         return null
     }
 }
@@ -21,7 +24,7 @@ const login = (req, res) => {
         if (!err) {
             if (result.rowCount > 0) {
                 const user = result.rows[0];
-                const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET);
+                const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET, {expiresIn: 600});
                 res.json({
                     accessToken,
                 });
@@ -34,6 +37,7 @@ const login = (req, res) => {
     });
 };
 
+//Função para verificar se o usuário já existe e, se não, cadastrá-lo
 const signUp = (req, res) => {
     client.query(`SELECT * from users where username = '${req.body.usuario}' OR email = '${req.body.email}'`, (err, result) =>{
         if(!err){
@@ -53,7 +57,7 @@ const signUp = (req, res) => {
 // Função para obter todas as tarefas
 const getTarefas = (req, res) => {
     const id = verifyToken(req.headers.authorization)
-    client.query(`SELECT * FROM tarefas WHERE iduser='${id}'`, (err, result) => {
+    client.query(`SELECT * FROM tarefas WHERE iduser='${id}' ORDER BY id ASC`, (err, result) => {
         if (!err) {
             res.json(result.rows);
         } else {

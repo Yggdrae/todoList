@@ -3,18 +3,13 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../AuthContext'
 
 function Login() {
-    const { handleSubmit, formData, setFormData, handleExit } = useContext(Context)
+    const { handleSubmit, formData, setFormData } = useContext(Context)
    
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const handleChange = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
-
-    useEffect(() => {
-        handleExit;
-      }, [])
-
       
   return (
     <>
