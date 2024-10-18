@@ -4,8 +4,8 @@ import axios from 'axios'
 function Item({ toggleForm, todo, allTodos, setTodos }) {
 
     const locale = 'pt-br'
-    const today = new Date().toLocaleDateString(locale) 
-    const date = new Date(todo.date).toLocaleDateString(locale) 
+    const today = new Date()
+    const date = new Date(todo.date)
 
     //Função assíncrona para lidar com o clique do usuário no botão de completar tarefa
     const handleComplete = async (e) => {
@@ -29,6 +29,13 @@ function Item({ toggleForm, todo, allTodos, setTodos }) {
         setTodos(newTodos.data)
     }
 
+    function handleDateComparison(todoDate, todayDate){
+      if(todoDate.getTime() >= todayDate.getTime())
+        return 'Vencimento: ' + todoDate.toLocaleDateString(locale)
+      else
+      return 'Tarefa Vencida'
+    }
+
   return (
     <>
       <div className={!todo.iscomplete ? 'todo-item' : 'todo-completed'} id={todo.id}>
@@ -39,7 +46,7 @@ function Item({ toggleForm, todo, allTodos, setTodos }) {
               
                 <p className='todoTitle'>{todo.title}</p>
                 <p className='desc'>Descrição: {todo.description}</p>
-                <p className='datavenc'>Vencimento: {date}</p>
+                <p className='datavenc'>{handleDateComparison(date, today)}</p>
              
               </div>
 

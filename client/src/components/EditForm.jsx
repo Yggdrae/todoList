@@ -49,18 +49,20 @@ function EditForm({ toggleForm, todo, allTodos, setTodos }) {
                     <input type="text" 
                     name='titulo' 
                     value={formData.titulo} 
-                    onChange={handleChange}/>
+                    onChange={handleChange}
+                    required />
 
                     <input type="text" 
                     name='descricao' 
                     value={formData.descricao} 
-                    onChange={handleChange}/>
+                    onChange={handleChange}
+                    required />
                     
                     <input type="date" 
                     name='datavenc' 
                     value={formData.datavenc} 
                     onChange={handleChange} 
-                    onKeyDown={(e) => e.preventDefault()}/>
+                    onKeyDown={(e) => e.preventDefault()} />
                 
                 </div>
                 <div className='editBtn'>
