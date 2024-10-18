@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-import Todo from '../components/todo'
-import TodoForm from '../components/TodoForm'
-import Filter from '../components/Filter'
-import SearchBar from '../components/SearchBar'
-import LogoutBtn from '../components/LogoutBtn'
+import TodoItem from '../components/List/TodoItem'
+import TodoForm from '../components/List/TodoForm'
+import Filter from '../components/List/Filter'
+import SearchBar from '../components/List/SearchBar'
+import LogoutBtn from '../components/List/LogoutBtn'
 import { Context } from '../AuthContext'
 import { useNavigate } from 'react-router-dom'
 
@@ -55,7 +55,7 @@ function List() {
           .filter((todo) => todo.title.toLowerCase().includes(search.toLocaleLowerCase())) //Filtro de pesquisa
           .filter((todo) => filter === 'All' ? true : filter === 'completed' ? todo.iscomplete : !todo.iscomplete) //Filtro de "ordenar por"
           .map((todo) => (
-            <Todo todo={todo} allTodos={todos} setTodos={setTodos} />
+            <TodoItem todo={todo} allTodos={todos} setTodos={setTodos} />
           ))
         }
       </>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import BackBtn from '../components/BackBtn'
+import { useNavigate } from 'react-router-dom'
+import BackBtn from '../components/Register/BackBtn'
+import RegisterForm from '../components/Register/RegisterForm'
 
 function Register() {
 
@@ -73,69 +74,28 @@ function Register() {
     
     const navigate = useNavigate();
 
+    //Função assíncrona que envia o formulário de cadastro para o servidor
+    //e retorna um alerta com a mensagem 
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(!validateForm()){
             const response = await axios.post('http://localhost:8080/signup', formData)
-            alert(response.data)
-            if(response.data == 'Usuário cadastrado com sucesso!') return navigate('/')
+            if(response.data == 'Usuário cadastrado com sucesso!'){
+                alert(response.data)
+                return navigate('/')
+            } 
         }
     }
 
   return (
     <>
-        <BackBtn />
         <h1>Cadastro de Novo Usuário</h1>
-            <form className='loginForm' onSubmit={handleSubmit}>
-                <div className="user">
-
-                    <label htmlFor="username">Nome de usuário: </label>
-                    <input type="text" 
-                    id='username' 
-                    name='usuario' 
-                    autoComplete='username' 
-                    onChange={handleChange}
-                    required />
-                    <p className='formError'>{formError.usuario}</p>
-                </div>
-
-                <div className="user">
-
-                    <label htmlFor="email">E-mail: </label>
-                    <input type="email" 
-                    id='email' 
-                    name='email' 
-                    autoComplete='email' 
-                    onChange={handleChange}
-                    required />
-                    <p className='formError'>{formError.email}</p>
-
-                </div>
-
-                <div className="pass">
-
-                    <label htmlFor="password">Senha: </label>
-                    <input type="password" 
-                    id='password' 
-                    name='senha' 
-                    onChange={handleChange}
-                    required />
-                    <p className='formError'>{formError.senha}</p>
-
-                </div>
-                <div className="pass">
-
-                    <label htmlFor="password">Confirme sua senha: </label>
-                    <input type="password" 
-                    id='confPassword' 
-                    name='confSenha' 
-                    onChange={handleChange}
-                    required />
-                    <p className='formError'>{formError.confSenha}</p>
-
-                </div>
-                <button type='submit' className='submitBtn'>Cadastrar</button>
-            </form>
+        <RegisterForm handleSubmit={handleSubmit}
+        validateForm={validateForm}
+        handleChange={handleChange}
+        formData={formData} setFormData={setFormData}
+        formError={formError} setFormError={setFormError} />
+        <BackBtn />
     </>
   )
 }

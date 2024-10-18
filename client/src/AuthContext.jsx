@@ -15,18 +15,21 @@ function AuthProvider({ children }) {
         senha: ''
     })
 
+    //Função assíncrona para lidar com o login, armazenando um token no localStorage
+    //caso haja sucesso no login
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = (await axios.post('http://localhost:8080/login', formData)).data.accessToken
-        localStorage.setItem('token', JSON.stringify(response))
+        const response = (await axios.post('http://localhost:8080/login', formData))
+        localStorage.setItem('token', JSON.stringify(response.data.accessToken))
         axios.defaults.headers.Authorization = `${response}`
         setAuthenticated(true)
         return navigate("/list")
     }
 
     const handleExit = () => {
-      setAuthenticated(false); // Alterado para definir como false ao sair
+      setAuthenticated(false);
       localStorage.removeItem('token');
+      return navigate('/')
     }
 
   return (

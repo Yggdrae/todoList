@@ -1,17 +1,18 @@
-import React, { useContext } from 'react'; // Adicione esta linha
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function BackBtn() {
   
   const navigate = useNavigate();
-
-  function handleGoBack() {
+  
+  //Botão para voltar para a pag inicial
+  function handleGoBack() { 
     return navigate('/');
   }
 
   return (
     <>
-      <button className='logoutBtn' onClick={handleGoBack}>Voltar</button>
+      <button  onClick={handleGoBack}>Voltar</button>
     </>
   );
 }

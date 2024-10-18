@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 
+
+//Componente Formulário de Edição.
+//Esse componente aparece em tela quando o usuário clica na área de Titulo, descrição
+//e vencimento da tarefa, assim possibilitando a edição direta no item
 function EditForm({ toggleForm, todo, allTodos, setTodos }) {
 
     //Constantes para manipulação do estado dos dados a serem enviados
@@ -10,6 +14,13 @@ function EditForm({ toggleForm, todo, allTodos, setTodos }) {
         descricao: todo.description,
         datavenc: todo.date
     })
+
+    //Preenchimento padrão do formulário de edição
+    const defaultForm = {
+        titulo: todo.title,
+        descricao: todo.description,
+        datavenc: todo.date
+    }
 
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de edição inline da tarefa
@@ -39,10 +50,16 @@ function EditForm({ toggleForm, todo, allTodos, setTodos }) {
         toggleForm()
     }
 
+    //Cancela a edição do item, resetando o preenchimento do formulário de edição
+    const handleCancelEdit = () => {
+        setFormData(defaultForm)
+        toggleForm
+    }
+
   return (
     <>
       <form className={!todo.iscomplete ? 'todo-item' : 'todo-completed'} 
-                onSubmit={handleEdition}>
+                onSubmit={handleEdition}>  {/* formulario de edição inline do item */}
 
                 <div className="editForm">
 
@@ -66,8 +83,13 @@ function EditForm({ toggleForm, todo, allTodos, setTodos }) {
                 
                 </div>
                 <div className='editBtn'>
-                    <button className='completeBtn' type='submit' onSubmit={handleEdition}>Confirmar</button>
-                    <button className='deleteBtn' type='button' onClick={toggleForm}>Cancelar</button>
+                    <button className='completeBtn' 
+                    type='submit' 
+                    onSubmit={handleEdition}>Confirmar</button> {/* Botão para confirmar a edição feita nos campos do formulário */}
+
+                    <button className='deleteBtn' 
+                    type='button' 
+                    onClick={toggleForm}>Cancelar</button> {/* Botão que cancela a edição atual */}
                 </div>
             </form>
     </>
