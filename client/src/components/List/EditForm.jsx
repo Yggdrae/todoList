@@ -36,8 +36,9 @@ function EditForm({ toggleForm, todo, allTodos, setTodos }) {
 
         //Envia o id do item alterado, junto das novas informações preenchidas no forms
         //para o servidor atualizar os campos no banco de dados
-        await axios.put(`http://localhost:8080/tarefas/${todo.id}`, formData)
-
+        const response = await axios.put(`http://localhost:8080/tarefas/${todo.id}`, formData)
+        alert(response.data)
+        
         //Busca as tarefas, desta vez atualizada, para armazenar numa constante para
         //ser usada na atualização das tarefas na página
         const newTodos = await axios.get('http://localhost:8080/tarefas')

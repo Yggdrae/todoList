@@ -28,7 +28,8 @@ function TodoForm({ todos, setTodos }) {
             datavenc: '',
         })
         //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
-        await axios.post('http://localhost:8080/tarefas', formData)
+        const response = await axios.post('http://localhost:8080/tarefas', formData)
+        alert(response.data)
         //Busca os itens atualizados e renderiza novamente na pag
         const newTodos = await axios.get('http://localhost:8080/tarefas')
         setTodos(newTodos.data)

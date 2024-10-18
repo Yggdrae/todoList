@@ -10,17 +10,17 @@ function Register() {
      //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const [formData, setFormData] = useState({
-        usuario: '',
+        username: '',
         email: '',
-        senha: '',
-        confSenha: ''
+        password: '',
+        confPassword: ''
     })
 
     const [ formError, setFormError ] = useState({
-        usuario: '',
+        username: '',
         email: '',
-        senha: '',
-        confSenha: ''
+        password: '',
+        confPassword: ''
     }) 
 
     //Função para alterar o estado dos dados a serem enviados
@@ -31,18 +31,18 @@ function Register() {
 
     const validateForm = () => {
         const inputError = {
-            usuario: '',
+            username: '',
             email: '',
-            senha: '',
-            confSenha: ''
+            password: '',
+            confPassword: ''
         }
 
         setFormError(inputError)
 
-        if(formData.usuario.length < 5) {
+        if(formData.username.length < 5) {
             setFormError({
                 ...inputError,
-                usuario: 'Nome de usuário deve conter ao menos 5 carateres'
+                username: 'Nome de usuário deve conter ao menos 5 carateres'
             })
             return true;
         }
@@ -55,18 +55,18 @@ function Register() {
             return true;
         }
 
-        if(formData.senha.length < 8){
+        if(formData.password.length < 8){
             setFormError({
                 ...inputError,
-                senha: 'Sua senha deve conter ao menos 8 caracteres!'
+                password: 'Sua senha deve conter ao menos 8 caracteres!'
             })
             return true;
         }
 
-        if(formData.senha != formData.confSenha){
+        if(formData.password != formData.confPassword){
             setFormError({
                 ...inputError,
-                confSenha: 'As senhas não coincidem!'
+                confPassword: 'As senhas não coincidem!'
             })
             return true;
         }
@@ -83,7 +83,7 @@ function Register() {
             if(response.data == 'Usuário cadastrado com sucesso!'){
                 alert(response.data)
                 return navigate('/')
-            } 
+            } else alert(response.data)
         }
     }
 
@@ -91,10 +91,8 @@ function Register() {
     <>
         <h1>Cadastro de Novo Usuário</h1>
         <RegisterForm handleSubmit={handleSubmit}
-        validateForm={validateForm}
         handleChange={handleChange}
-        formData={formData} setFormData={setFormData}
-        formError={formError} setFormError={setFormError} />
+        formError={formError} />
         <BackBtn />
     </>
   )

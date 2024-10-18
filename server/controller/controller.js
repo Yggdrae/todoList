@@ -18,32 +18,43 @@ function verifyToken(token){
     }
 }
 
+//Função para realizar comparação das datas e retornar o que será renderizado na
+//linha "vencimento da tarefa"
+function handleDateComparison(todoDate){
+    const locale = 'pt-br'
+    const today = new Date()
+    const date = new Date(todoDate)
+
+    return (date.getTime() >= today.getTime())
+
+}
+
 // Função para fazer login
 const login = (req, res) => {
     client.query(`SELECT * FROM users WHERE email = '${req.body.email}' AND password = '${req.body.senha}'`, (err, result) => {
         if (!err) {
             if (result.rowCount > 0) {
                 const user = result.rows[0];
-                const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET, {expiresIn: 600});
+                const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SECRET);
                 res.json({
                     accessToken,
                 });
             } else {
-                res.status(401).send('Email ou senha inválidos');
+                res.json({ 'res': 'Email ou senha inválidos'});
             }
         } else {
-            res.status(500).send(err.message);
+            res.status(500).send(err.message)
         }
     });
 };
 
 //Função para verificar se o usuário já existe e, se não, cadastrá-lo
 const signUp = (req, res) => {
-    client.query(`SELECT * from users where username = '${req.body.usuario}' OR email = '${req.body.email}'`, (err, result) =>{
+    client.query(`SELECT * from users where username = '${req.body.username}' OR email = '${req.body.email}'`, (err, result) =>{
         if(!err){
             if(result.rowCount == 0){
                 client.query(`INSERT INTO users (username, email, password) 
-                    VALUES ('${req.body.usuario}', '${req.body.email}', '${req.body.senha}')`, (err) =>{
+                    VALUES ('${req.body.username}', '${req.body.email}', '${req.body.password}')`, (err) =>{
                         if(!err) res.end('Usuário cadastrado com sucesso!')
                         else res.status(500)
                     })
@@ -61,7 +72,7 @@ const getTarefas = (req, res) => {
         if (!err) {
             res.json(result.rows);
         } else {
-            res.status(500).send(err.message);
+            res.status(500).send('erro no get');
         }
     });
 };
@@ -70,25 +81,33 @@ const getTarefas = (req, res) => {
 const createTarefa = (req, res) => {
     const tarefa = req.body;
     const id = verifyToken(req.headers.authorization)
-    client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', '${id}', false)`, (err) => {
-        if (!err) {
-            res.status(201).send("Tarefa registrada com sucesso");
-        } else {
-            res.status(500).send(err.message);
-        }
-    });
+    
+    if(handleDateComparison(tarefa.datavenc)){
+        client.query(`INSERT INTO tarefas (title, description, date, iduser, iscomplete) VALUES ('${tarefa.titulo}', '${tarefa.descricao}', '${tarefa.datavenc}', '${id}', false)`, (err) => {
+            if (!err) {
+                res.end("Tarefa registrada com sucesso");
+            } else {
+                res.status(500).send(err.message);
+            }
+        });
+    }
+    else res.end('Data inválida')
 };
 
 // Função para atualizar uma tarefa
 const updateTarefa = (req, res) => {
     const formInfo = req.body;
-    client.query(`UPDATE tarefas SET title = '${formInfo.titulo}', description = '${formInfo.descricao}', date = '${formInfo.datavenc}' WHERE id = ${req.params.id}`, (err) => {
-        if (!err) {
-            res.send("Tarefa atualizada com sucesso");
-        } else {
-            res.status(500).send(err.message);
-        }
-    });
+
+    if(handleDateComparison(req.body.datavenc)){
+        client.query(`UPDATE tarefas SET title = '${formInfo.titulo}', description = '${formInfo.descricao}', date = '${formInfo.datavenc}' WHERE id = ${req.params.id}`, (err) => {
+            if (!err) {
+                res.end("Tarefa atualizada com sucesso");
+            } else {
+                res.status(500).send(err.message);
+            }
+        });
+    } else res.end('Data inválida')
+    
 };
 
 // Função para alterar o status de conclusão de uma tarefa
@@ -108,7 +127,7 @@ const updateTarefaStatus = (req, res) => {
 const deleteTarefa = (req, res) => {
     client.query(`DELETE FROM tarefas WHERE id=${req.params.id}`, (err) => {
         if (!err) {
-            res.send("Tarefa excluída com sucesso");
+            res.end("Tarefa excluída com sucesso");
         } else {
             res.status(500).send(err.message);
         }
