@@ -9,11 +9,11 @@ function RegisterForm({ handleSubmit, handleChange, formError }) {
                 <label htmlFor="username">Nome de usuário: </label>
                 <input type="text" 
                 id='username' 
-                name='usuario' 
+                name='username' 
                 autoComplete='username' 
                 onChange={handleChange}
                 required />
-                <p className='formError'>{formError.usuario}</p>
+                <p className='formError'>{formError.username}</p>
             </div>
 
             <div className="user">
@@ -34,10 +34,10 @@ function RegisterForm({ handleSubmit, handleChange, formError }) {
                 <label htmlFor="password">Senha: </label>
                 <input type="password" 
                 id='password' 
-                name='senha' 
+                name='password' 
                 onChange={handleChange}
                 required />
-                <p className='formError'>{formError.senha}</p>
+                <p className='formError'>{formError.password}</p>
 
             </div>
             <div className="pass">
@@ -45,10 +45,10 @@ function RegisterForm({ handleSubmit, handleChange, formError }) {
                 <label htmlFor="password">Confirme sua senha: </label>
                 <input type="password" 
                 id='confPassword' 
-                name='confSenha' 
+                name='confPassword' 
                 onChange={handleChange}
                 required />
-                <p className='formError'>{formError.confSenha}</p>
+                <p className='formError'>{formError.confPassword}</p>
 
             </div>
             <button type='submit' className='submitBtn'>Cadastrar</button>

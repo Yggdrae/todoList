@@ -19,11 +19,17 @@ function AuthProvider({ children }) {
     //caso haja sucesso no login
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const response = (await axios.post('http://localhost:8080/login', formData))
-        localStorage.setItem('token', JSON.stringify(response.data.accessToken))
-        axios.defaults.headers.Authorization = `${response}`
-        setAuthenticated(true)
-        return navigate("/list")
+        const response = (await axios.post('http://localhost:8080/login', formData)).data
+        if(!(response.accessToken == undefined)){
+          localStorage.setItem('token', JSON.stringify(response.accessToken))
+          axios.defaults.headers.Authorization = `${response.accessToken}`
+          setAuthenticated(true)
+          return navigate("/list")
+        }
+        else {
+          alert(response.res)
+        }
+        
     }
 
     const handleExit = () => {
