@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import BackBtn from '../components/LogoutBtn'
+import BackBtn from '../components/BackBtn'
 
 function Register() {
 
@@ -84,6 +84,7 @@ function Register() {
 
   return (
     <>
+        <BackBtn />
         <h1>Cadastro de Novo Usuário</h1>
             <form className='loginForm' onSubmit={handleSubmit}>
                 <div className="user">
@@ -135,7 +136,6 @@ function Register() {
                 </div>
                 <button type='submit' className='submitBtn'>Cadastrar</button>
             </form>
-            <Link to='/'>Voltar</Link>
     </>
   )
 }
