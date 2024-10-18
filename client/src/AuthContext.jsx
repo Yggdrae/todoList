@@ -11,7 +11,7 @@ function AuthProvider({ children }) {
     //Constantes para manipulação do estado dos dados a serem enviados
     //do formulário de criação de tarefa
     const [formData, setFormData] = useState({
-        usuario: '',
+        email: '',
         senha: ''
     })
 
@@ -19,7 +19,7 @@ function AuthProvider({ children }) {
         e.preventDefault()
         const response = (await axios.post('http://localhost:8080/login', formData)).data.accessToken
         localStorage.setItem('token', JSON.stringify(response))
-        axios.defaults.headers.Authorization = `Bearer ${response}`
+        axios.defaults.headers.Authorization = `${response}`
         setAuthenticated(true)
         return navigate("/list")
     }

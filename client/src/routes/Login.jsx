@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../AuthContext'
 
 function Login() {
-    const { authenticated, setAuthenticated, handleSubmit, formData, setFormData, handleExit } = useContext(Context)
+    const { handleSubmit, formData, setFormData, handleExit } = useContext(Context)
    
     //Função para alterar o estado dos dados a serem enviados
     //do formulário de criação de tarefa
@@ -22,11 +22,11 @@ function Login() {
             <form className='loginForm' onSubmit={handleSubmit}>
                 <div className="user">
 
-                    <label htmlFor="username">Nome de usuário: </label>
-                    <input type="text" 
-                    id='username' 
-                    name='usuario' 
-                    autoComplete='username' 
+                    <label htmlFor="username">E-mail: </label>
+                    <input type="email" 
+                    id='email' 
+                    name='email' 
+                    autoComplete='email' 
                     onChange={handleChange}
                     required />
                 

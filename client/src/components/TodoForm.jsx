@@ -7,7 +7,7 @@ function TodoForm({ todos, setTodos }) {
     const [formData, setFormData] = useState({
         titulo: '',
         descricao: '',
-        datavenc: ''
+        datavenc: '',
     })
 
     //Função para alterar o estado dos dados a serem enviados
@@ -17,7 +17,7 @@ function TodoForm({ todos, setTodos }) {
     }
 
     //Função assíncrona para lidar com a confirmação da edição inline da tarefa
-    const handleSubmit = async (e) => {
+    const handleAdd = async (e) => {
         //Impede a página de ser atualizada
         e.preventDefault()
         //Constante que recebe todas as tarefas, adicionando a tarefa criada
@@ -29,7 +29,6 @@ function TodoForm({ todos, setTodos }) {
             titulo: '',
             descricao: '',
             datavenc: '',
-            token: localStorage.getItem('token')
         })
         //Envia as informações da tarefa criada para o servidor incluir o novo item ao banco de dados
         await axios.post('http://localhost:8080/tarefas', formData)
@@ -39,7 +38,7 @@ function TodoForm({ todos, setTodos }) {
 
   return (
     <div className="createForm">
-        <form  onSubmit={handleSubmit}>
+        <form  onSubmit={handleAdd}>
             <input type='text' 
             className='addTodo' 
             name='titulo'
@@ -67,7 +66,7 @@ function TodoForm({ todos, setTodos }) {
 
             <button 
             type='submit' 
-            onSubmit={handleSubmit}>Adicionar tarefa</button>
+            onSubmit={handleAdd}>Adicionar tarefa</button>
         </form>
     </div>
   )

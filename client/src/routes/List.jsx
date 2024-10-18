@@ -22,9 +22,7 @@ function List() {
     setTodos(response.data)
   }
 
-  console.log(authenticated)
-  console.log(localStorage.getItem('token'))
-  //Hook para verificar autentucação do usuário e redirecioná-lo caso o mesmo não
+  //Hook para verificar autenticação do usuário e redirecioná-lo caso o mesmo não
   //tenha sido autenticado, e utilizar a função assíncrona que renderiza a lista
   //de tarefas ao acessar a página
   useEffect(() => {

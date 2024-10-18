@@ -15,7 +15,6 @@ client.query(`CREATE TABLE IF NOT EXISTS users
         username text NOT NULL,
         email text NOT NULL,
         password text NOT NULL,
-        isAdmin boolean NOT NULL,
         PRIMARY KEY (id)
     );
     
@@ -33,7 +32,7 @@ client.query(`CREATE TABLE IF NOT EXISTS tarefas
         CONSTRAINT iduser FOREIGN KEY (iduser)
             REFERENCES users (id) MATCH SIMPLE
             ON UPDATE NO ACTION
-            ON DELETE NO ACTION
+            ON DELETE CASCADE
             NOT VALID
     );
     
